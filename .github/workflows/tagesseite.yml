@@ -1,0 +1,21 @@
+name: Tagesseite
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  neu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 generate.py
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      - run: |
+          git config user.name "tagesseite"
+          git config user.email "actions@users.noreply.github.com"
+          git add data
+          git commit -m "Tagesseite $(date +%F)" || echo "nichts Neues"
+          git push
