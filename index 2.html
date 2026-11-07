@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sprachen</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sprachen">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F5F1; --surface:#FFFFFF; --ink:#1B1A17; --muted:#6B6860; --line:#E3E0D8; --line-strong:#CFCBC1;
+  --it:#1E8A4F; --it-soft:#E2F2E8; --ja:#6A3FD0; --ja-soft:#EEE8FB;
+  --good:#1E8A4F; --bad:#C4372F;
+  --accent:var(--it); --soft:var(--it-soft);
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131311; --surface:#1D1D1A; --ink:#ECEAE4; --muted:#A09D94; --line:#2E2D29; --line-strong:#45433D;
+    --it:#5CCB8C; --it-soft:#1A2E22; --ja:#AE91FF; --ja-soft:#251D3B; --good:#5CCB8C; --bad:#FF7F77;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131311; --surface:#1D1D1A; --ink:#ECEAE4; --muted:#A09D94; --line:#2E2D29; --line-strong:#45433D;
+  --it:#5CCB8C; --it-soft:#1A2E22; --ja:#AE91FF; --ja-soft:#251D3B; --good:#5CCB8C; --bad:#FF7F77;
+  color-scheme:dark;
+}
+body[data-lang="ja"]{--accent:var(--ja); --soft:var(--ja-soft)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 7rem)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Figtree,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+[hidden]{display:none!important}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.top-inner{max-width:44rem;margin:0 auto;padding:.7rem 1.1rem .5rem}
+.langs{display:flex;gap:.4rem}
+.langs button{flex:1;border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:.55rem .5rem;font-weight:700;font-size:1.02rem;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.langs button i{width:.7rem;height:.7rem;border-radius:50%}
+#lang-it i{background:var(--it)} #lang-ja i{background:var(--ja)}
+#lang-it[aria-pressed="true"]{border-color:var(--it);background:var(--it-soft)}
+#lang-ja[aria-pressed="true"]{border-color:var(--ja);background:var(--ja-soft)}
+.sub{display:flex;gap:.2rem;margin-top:.55rem;overflow-x:auto;scrollbar-width:none}
+.sub::-webkit-scrollbar{display:none}
+.sub button{flex:1;border:0;background:transparent;border-radius:999px;padding:.45rem .8rem;font-weight:600;color:var(--muted);white-space:nowrap}
+.sub button[aria-selected="true"]{background:var(--accent);color:var(--surface)}
+
+main{max-width:44rem;margin:0 auto;padding:1rem 1.1rem 4rem}
+h1{font-size:1.45rem;line-height:1.25;margin:.4rem 0 .3rem}
+
+.datenav{display:flex;align-items:center;gap:.6rem;margin:.2rem 0 1rem}
+.datenav .mid{flex:1;text-align:center;font-weight:600}
+.datenav .mid small{display:block;font-weight:500;color:var(--muted);font-size:.8rem}
+.arrow{flex:none;width:2.5rem;height:2.5rem;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:1.25rem;line-height:1}
+.arrow:disabled{opacity:.3;cursor:default}
+
+.empty{background:var(--surface);border:1px dashed var(--line-strong);border-radius:16px;padding:1.4rem;text-align:center}
+.empty strong{display:block;margin-bottom:.3rem}
+
+/* Italiano */
+.reading{font-family:Literata,Georgia,serif;font-size:1.13rem;line-height:1.85;margin:0 0 1rem}
+.it-title{font-family:Literata,Georgia,serif;font-weight:600;font-size:1.55rem}
+.w{border-radius:4px;cursor:pointer;transition:background .15s}
+.w:hover{background:var(--soft)}
+.w.on{background:var(--soft);box-shadow:inset 0 -2px 0 var(--accent)}
+.source{font-size:.88rem;color:var(--muted)}
+.source a{color:inherit}
+.frase{margin-top:1.6rem;background:var(--soft);border-radius:18px;padding:1.1rem 1.2rem}
+.frase .label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.frase-it{font-family:Literata,Georgia,serif;font-size:1.3rem;line-height:1.45;margin:.35rem 0}
+.frase-de{font-weight:600;margin:.2rem 0}
+.credit{margin-top:2.4rem;font-size:.78rem;color:var(--muted)}
+
+/* Japanisch lesen */
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-bottom:.4rem}
+.chips{display:flex;gap:.35rem}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:.3rem .8rem;font-weight:600;font-size:.92rem}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--soft);color:var(--accent)}
+.switch{margin-left:auto;display:flex;align-items:center;gap:.4rem;font-size:.92rem;font-weight:500}
+.switch input{accent-color:var(--accent);width:1.1rem;height:1.1rem}
+.note{font-size:.88rem;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.55rem .8rem}
+.jp-font,.jp,.kbig,.kana-big,.small-jp{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif}
+.ja-title{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;font-size:1.6rem;margin-bottom:.1rem}
+.sent{position:relative;padding:.55rem 2.6rem .55rem 0;border-bottom:1px solid var(--line)}
+.jp{font-size:1.45rem;line-height:2.25;margin:0}
+.t{border-radius:6px;padding:0 1px;cursor:pointer}
+.t:hover{background:var(--soft)}
+.t.seen{box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--accent) 55%,transparent)}
+rt{font-size:.5em;color:var(--muted)}
+.de-btn{position:absolute;right:0;top:.85rem;border:1px solid var(--line);background:var(--surface);border-radius:8px;font-size:.72rem;font-weight:700;padding:.2rem .4rem;color:var(--muted)}
+.de-btn[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
+.jp-de{margin:.1rem 0 .2rem;color:var(--muted)}
+.big-btn{display:block;width:100%;margin-top:1.4rem;border:0;border-radius:14px;padding:.95rem;background:var(--accent);color:var(--surface);font-weight:700;font-size:1.02rem}
+
+/* Sheet */
+.sheet{position:fixed;inset:0;z-index:40}
+.scrim{position:absolute;inset:0;background:rgba(0,0,0,.35);opacity:0;transition:opacity .2s}
+.panel{position:absolute;left:0;right:0;bottom:0;max-width:40rem;margin:0 auto;max-height:82vh;overflow-y:auto;background:var(--surface);border-radius:22px 22px 0 0;padding:1.2rem 1.2rem calc(1.4rem + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .22s ease;box-shadow:0 -10px 40px rgba(0,0,0,.15)}
+.sheet.open .scrim{opacity:1}
+.sheet.open .panel{transform:none}
+.close{position:sticky;top:0;float:right;border:0;background:var(--bg);border-radius:50%;width:2.1rem;height:2.1rem;font-size:1.1rem;color:var(--muted);margin:-.3rem -.3rem 0 .5rem}
+.sheet-head{display:flex;align-items:flex-start;gap:.8rem}
+.sheet-head .grow{flex:1;min-width:0}
+.big{font-size:2rem;font-weight:700;line-height:1.2;word-break:break-word}
+.reading-line{color:var(--muted);font-size:1.05rem}
+.tag{display:inline-block;margin-top:.3rem;font-size:.78rem;font-weight:600;color:var(--accent);background:var(--soft);border-radius:999px;padding:.1rem .55rem}
+.trans{font-size:1.25rem;font-weight:600;margin:.8rem 0 .3rem}
+.sec{margin-top:1.1rem}
+.sec h3{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 .35rem}
+.star{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:50%;width:2.6rem;height:2.6rem;font-size:1.3rem;line-height:1;color:var(--muted)}
+.star[aria-pressed="true"]{color:#E2A400;border-color:#E2A400}
+.kcard{display:flex;gap:.9rem;align-items:flex-start;background:var(--bg);border-radius:14px;padding:.8rem;margin-bottom:.5rem}
+.kcard .kbig{font-size:2.6rem;line-height:1;color:var(--accent)}
+.kcard p{margin:.3rem 0 0}
+.link{border:0;background:none;color:var(--accent);font-weight:600;padding:.3rem 0}
+.arrow-btn{border:1.5px solid var(--accent);color:var(--accent);background:transparent;border-radius:999px;padding:.4rem .9rem;font-weight:600}
+.example{margin-top:.6rem;background:var(--soft);border-radius:14px;padding:.7rem .9rem}
+.example p{margin:.15rem 0}
+.small-jp{font-size:1.2rem}
+
+/* Listen */
+.list-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+.wordlist{list-style:none;margin:.6rem 0 0;padding:0}
+.wordlist li{display:flex;align-items:center;gap:.8rem;padding:.75rem 0;border-bottom:1px solid var(--line)}
+.wl-main{flex:1;min-width:0}
+.wl-main strong,.wl-main ruby{font-size:1.12rem}
+.wl-de{margin-top:.1rem}
+
+/* Trainer */
+.trainer-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:1.4rem 1.2rem;text-align:center;margin-top:.6rem}
+.kana-big{font-size:5.5rem;line-height:1.15;color:var(--accent)}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem}
+.opt{border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:.8rem;font-size:1.2rem;font-weight:700}
+.opt.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 15%,var(--surface))}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 13%,var(--surface))}
+.feedback{min-height:1.5rem;margin:.7rem 0 0;font-weight:600}
+.stats-sum{display:flex;gap:1rem;flex-wrap:wrap;margin:1.4rem 0 .5rem;font-size:.9rem}
+.stats-sum b{font-size:1.1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(2.6rem,1fr));gap:.3rem}
+.cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:1.15rem;border:1px solid var(--line);background:var(--surface);font-family:"Hiragino Sans","Noto Sans JP",sans-serif;padding:0}
+.cell.b0{background:color-mix(in srgb,var(--bad) 22%,var(--surface));border-color:transparent}
+.cell.b1{background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.cell.b2{background:color-mix(in srgb,var(--accent) 22%,var(--surface))}
+.cell.b3{background:color-mix(in srgb,var(--accent) 38%,var(--surface));border-color:transparent}
+.cell.b4{background:color-mix(in srgb,var(--accent) 60%,var(--surface));border-color:transparent;color:var(--surface)}
+.cell.b5{background:var(--accent);color:var(--surface);border-color:transparent}
+.cell.cur{outline:2px solid var(--ink);outline-offset:1px}
+.legend{display:flex;gap:.8rem;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin-top:.5rem}
+.legend span{display:flex;align-items:center;gap:.3rem}
+.legend i{width:.8rem;height:.8rem;border-radius:3px;display:inline-block}
+
+.kanji-card .kana-big{font-size:6rem}
+.details{text-align:left;margin-top:.8rem}
+.details .trans{margin-top:0}
+.row2{display:flex;gap:.6rem;margin-top:1rem}
+.row2 button{flex:1;border:0;border-radius:14px;padding:.85rem;font-weight:700;font-size:1rem}
+.again{background:color-mix(in srgb,var(--bad) 15%,var(--surface));color:var(--bad)}
+.knew{background:var(--accent);color:var(--surface)}
+.reveal{border:1.5px solid var(--accent);background:transparent;color:var(--accent);border-radius:14px;padding:.75rem 1.4rem;font-weight:700;margin-top:.8rem}
+
+.pad-wrap{margin-top:1.2rem}
+.pad{position:relative;width:100%;max-width:340px;aspect-ratio:1;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.pad svg,.pad canvas{position:absolute;inset:0;width:100%;height:100%}
+.pad canvas{touch-action:none}
+.pad .gridlines line{stroke:var(--line-strong);stroke-width:.5;stroke-dasharray:2 2}
+.pad .guide path{fill:none;stroke:var(--line-strong);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.pad .anim path{fill:none;stroke:var(--accent);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
+.pad .anim text{font-size:7px;fill:var(--muted);font-family:Figtree,sans-serif}
+.pad-btns{display:flex;gap:.4rem;justify-content:center;margin-top:.6rem;flex-wrap:wrap}
+.pad-btns button{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:.45rem .8rem;font-weight:600;font-size:.92rem}
+.pad-btns button[aria-pressed="false"]{color:var(--muted)}
+
+.toast{position:fixed;left:50%;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,160%);background:var(--ink);color:var(--bg);padding:.7rem 1.1rem;border-radius:16px;font-weight:500;transition:transform .25s ease;z-index:50;max-width:min(90vw,30rem);text-align:center}
+.toast.show{transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body data-lang="it">
+<header class="top">
+  <div class="top-inner">
+    <div class="langs">
+      <button id="lang-it" aria-pressed="true"><i></i>Italiano</button>
+      <button id="lang-ja" aria-pressed="false"><i></i>日本語</button>
+    </div>
+    <nav class="sub" id="sub" role="tablist"></nav>
+  </div>
+</header>
+<main>
+  <section id="it-text"></section>
+  <section id="it-words" hidden></section>
+  <section id="ja-kana" hidden></section>
+  <section id="ja-read" hidden></section>
+  <section id="ja-kanji" hidden></section>
+  <section id="ja-words" hidden></section>
+</main>
+<div class="sheet" id="sheet" hidden>
+  <div class="scrim" id="scrim"></div>
+  <div class="panel" role="dialog" aria-modal="true">
+    <button class="close" id="sheet-close" aria-label="Schließen">✕</button>
+    <div id="sheet-body"></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- Helfer ---------- */
+const $=s=>document.querySelector(s);
+function el(tag,props,...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(props||{})){
+    if(v===false||v==null) continue;
+    if(k==="class") e.className=v;
+    else if(k.startsWith("on")) e.addEventListener(k.slice(2),v);
+    else e.setAttribute(k,v===true?"":v);
+  }
+  for(const c of kids.flat(Infinity)){
+    if(c==null||c===false) continue;
+    e.append(c.nodeType?c:document.createTextNode(String(c)));
+  }
+  return e;
+}
+function ls(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}}
+function ss(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+let toastT;
+function toast(msg,ms){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),ms||2200)}
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const fmtDay=new Intl.DateTimeFormat("de-DE",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+const fmtDate=s=>{const [y,m,d]=s.split("-").map(Number);return fmtDay.format(new Date(y,m-1,d))};
+const safeLink=u=>/^https?:\/\//i.test(u||"")?u:null;
+const KANJI=/[\u4e00-\u9fff]/;
+const arr=x=>Array.isArray(x)?x.join(", "):(x||"–");
+function put(box,...nodes){box.replaceChildren(...nodes.flat(Infinity).filter(x=>x!=null&&x!==false))}
+function empty(title,text){return el("div",{class:"empty"},el("strong",{},title),el("span",{class:"muted"},text))}
+
+/* ---------- Daten ---------- */
+function bases(){
+  const b=[],h=location.hostname;
+  if(h.endsWith(".github.io")){
+    const owner=h.split(".")[0];
+    const first=location.pathname.split("/").filter(Boolean)[0];
+    const repo=first&&!first.includes(".")?first:h;
+    b.push(`https://raw.githubusercontent.com/${owner}/${repo}/main/data/`);
+  }
+  b.push("data/");
+  return b;
+}
+async function getData(path){
+  for(const base of bases()){
+    try{
+      const r=await fetch(base+path+(base.startsWith("http")?"?t="+Math.floor(Date.now()/60000):""),{cache:"no-store"});
+      if(r.ok){const j=await r.json();ss("sp-cache:"+path,j);return j}
+    }catch(e){}
+  }
+  return ls("sp-cache:"+path,null);
+}
+let IDX={it:[],ja:[]},idxP=null;
+const loadIndex=()=>idxP||(idxP=getData("index.json").then(j=>{if(j)IDX={it:j.it||[],ja:j.ja||[]};return IDX}));
+const DAYS={it:{},ja:{}},POS={it:0,ja:0};
+async function loadDay(lang){
+  await loadIndex();
+  const dates=IDX[lang];
+  if(!dates.length) return null;
+  POS[lang]=Math.max(0,Math.min(POS[lang],dates.length-1));
+  const d=dates[POS[lang]];
+  if(!DAYS[lang][d]) DAYS[lang][d]=await getData(`${lang}/${d}.json`);
+  return DAYS[lang][d];
+}
+function dateNav(lang,rerender){
+  const dates=IDX[lang],i=POS[lang];
+  return el("div",{class:"datenav"},
+    el("button",{class:"arrow","aria-label":"Vorheriger Tag",disabled:i>=dates.length-1,onclick:()=>{POS[lang]++;rerender()}},"‹"),
+    el("div",{class:"mid"},fmtDate(dates[i]),el("small",{},i===0?"Neueste Seite":`${i} ${i===1?"Tag":"Tage"} zurück`)),
+    el("button",{class:"arrow","aria-label":"Nächster Tag",disabled:i<=0,onclick:()=>{POS[lang]--;rerender()}},"›"));
+}
+
+/* ---------- Wortlisten ---------- */
+const W={it:ls("sp-words-it",{}),ja:ls("sp-words-ja",{})};
+function toggleWord(lang,key,item){
+  if(W[lang][key]) delete W[lang][key]; else W[lang][key]=item;
+  ss("sp-words-"+lang,W[lang]);
+  const on=!!W[lang][key];
+  toast(on?"Zur Liste hinzugefügt":"Aus der Liste entfernt",1400);
+  return on;
+}
+function starBtn(on,toggle){
+  const b=el("button",{class:"star"});
+  const set=v=>{b.textContent=v?"★":"☆";b.setAttribute("aria-pressed",String(v));b.setAttribute("aria-label",v?"Aus der Liste entfernen":"Zur Liste hinzufügen")};
+  set(on);b.onclick=()=>set(toggle());
+  return b;
+}
+
+/* ---------- Sheet ---------- */
+function openSheet(...nodes){
+  const s=$("#sheet");$("#sheet-body").replaceChildren(...nodes.flat().filter(Boolean));
+  s.hidden=false;$(".panel").scrollTop=0;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>s.classList.add("open")));
+}
+function closeSheet(){
+  const s=$("#sheet");s.classList.remove("open");
+  document.querySelectorAll(".w.on").forEach(x=>x.classList.remove("on"));
+  setTimeout(()=>{if(!s.classList.contains("open"))s.hidden=true},230);
+}
+$("#scrim").onclick=closeSheet;$("#sheet-close").onclick=closeSheet;
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet()});
+
+/* ---------- Italiano ---------- */
+function tappable(text,onTap){
+  const out=[];
+  String(text||"").split(/(\p{L}+['’]?)/u).forEach((part,i)=>{
+    if(!part) return;
+    if(i%2===1){const s=el("span",{class:"w"},part);s.onclick=()=>{document.querySelectorAll(".w.on").forEach(x=>x.classList.remove("on"));s.classList.add("on");onTap(part)};out.push(s)}
+    else out.push(document.createTextNode(part));
+  });
+  return out;
+}
+async function renderItText(){
+  const box=$("#it-text");
+  if(!box.childElementCount) put(box,el("p",{class:"muted"},"Lädt …"));
+  const day=await loadDay("it");
+  if(!day){put(box,empty("Noch keine Tagesseite","Die erste Seite erscheint, sobald die Automatik auf GitHub gelaufen ist."));return}
+  const g=day.glossario||{};
+  const look=w=>{const k=w.toLowerCase().replace(/’/g,"'");return g[k]||g[k.replace(/'$/,"")]||g[k+"'"]||null};
+  const tap=w=>openItWord(w,look(w),day.datum);
+  const f=day.frase||{};
+  const link=day.fonte&&safeLink(day.fonte.link);
+  put(box,
+    dateNav("it",renderItText),
+    el("h1",{class:"it-title"},tappable(day.titolo,tap)),
+    (day.testo||[]).map(p=>el("p",{class:"reading"},tappable(p,tap))),
+    day.fonte&&day.fonte.titolo?el("p",{class:"source"},"Zum Nachlesen: ",link?el("a",{href:link,target:"_blank",rel:"noopener"},day.fonte.titolo):day.fonte.titolo):null,
+    f.it?el("section",{class:"frase"},
+      el("div",{class:"label"},f.tipo||"Frase del giorno"),
+      el("p",{class:"frase-it"},tappable(f.it,tap)),
+      el("p",{class:"frase-de"},f.de||""),
+      f.spiegazione?el("p",{class:"small muted"},f.spiegazione):null):null,
+    el("p",{class:"credit"},"Text von einer KI (Gemini) nach aktuellen Schlagzeilen geschrieben. Übersetzungen können Fehler enthalten."));
+}
+function openItWord(w,e,date){
+  const lemma=e&&e.lemma?e.lemma:w;
+  const key=lemma.toLowerCase();
+  openSheet(
+    el("div",{class:"sheet-head"},
+      el("div",{class:"grow"},el("div",{class:"big"},w),
+        lemma.toLowerCase()!==w.toLowerCase()?el("div",{class:"reading-line"},"Grundform: ",el("strong",{},lemma)):null),
+      starBtn(!!W.it[key],()=>toggleWord("it",key,{w:lemma,form:w,de:e?e.de:"",info:e?e.info:"",d:date}))),
+    e?el("p",{class:"trans"},e.de):el("p",{class:"muted"},"Für dieses Wort gibt es leider keinen Eintrag."),
+    e&&e.info?el("p",{class:"muted"},e.info):null);
+}
+
+/* ---------- Wortlisten-Ansicht ---------- */
+function renderWords(lang){
+  const box=$(`#${lang}-words`);
+  const items=Object.entries(W[lang]).sort((a,b)=>(b[1].d||"").localeCompare(a[1].d||"")||a[0].localeCompare(b[0]));
+  const head=el("div",{class:"list-head"},el("h1",{},lang==="it"?"Vokabeln":"Wörter"),el("span",{class:"muted"},`${items.length} gespeichert`));
+  if(!items.length){put(box,head,empty("Noch nichts gespeichert","Tippe beim Lesen auf ein Wort und dann auf den Stern ☆."));return}
+  put(box,head,el("ul",{class:"wordlist"},items.map(([k,it])=>el("li",{},
+    el("div",{class:"wl-main"},
+      lang==="ja"&&it.r&&it.r!==it.w?el("ruby",{class:"jp-font"},it.w,el("rt",{},it.r)):el("strong",{class:lang==="ja"?"jp-font":""},it.w),
+      el("div",{class:"wl-de"},it.de||""),
+      (it.info||it.art)?el("div",{class:"muted small"},it.info||it.art):null),
+    el("button",{class:"star","aria-pressed":"true","aria-label":"Aus der Liste entfernen",onclick:()=>{delete W[lang][k];ss("sp-words-"+lang,W[lang]);renderWords(lang);toast("Entfernt",1200)}},"★")))));
+}
+
+/* ---------- Japanisch: Lesen ---------- */
+const JL=Object.assign({level:"N5",hist:[],done:{}},ls("sp-ja-level",{}));
+let furi=ls("sp-furi",true),tapped=new Set(),tappedKey="";
+const ORDER=["N5","N4","N3"];
+async function renderJaRead(){
+  const box=$("#ja-read");
+  if(!box.childElementCount) put(box,el("p",{class:"muted"},"Lädt …"));
+  const day=await loadDay("ja");
+  if(!day){put(box,empty("Noch keine Tagesseite","Die ersten Texte erscheinen, sobald die Automatik auf GitHub gelaufen ist."));return}
+  const lv=day.levels||{};
+  let level=JL.level,note=null;
+  if(!lv[level]){const avail=ORDER.filter(l=>lv[l]);if(!avail.length){put(box,empty("Kein Text","Für diesen Tag gibt es keinen japanischen Text."));return}
+    level=avail.reduce((best,l)=>Math.abs(ORDER.indexOf(l)-ORDER.indexOf(JL.level))<Math.abs(ORDER.indexOf(best)-ORDER.indexOf(JL.level))?l:best);
+    note=`Für ${JL.level} gibt es an diesem Tag keinen Text. Du siehst ${level}.`}
+  const t=lv[level],key=day.datum+"|"+level;
+  if(tappedKey!==key){tappedKey=key;tapped=new Set()}
+  const sents=(t.saetze||[]).map((s,si)=>{
+    const p=el("p",{class:"jp"});
+    (s.tokens||[]).forEach((tk,ti)=>{
+      if(!tk||!tk.s) return;
+      if(tk.p){p.append(tk.s);return}
+      const id=si+":"+ti;
+      const span=el("span",{class:"t"+(tapped.has(id)?" seen":"")},furi&&KANJI.test(tk.s)&&tk.r?el("ruby",{},tk.s,el("rt",{},tk.r)):tk.s);
+      span.onclick=()=>{tapped.add(id);span.classList.add("seen");openJaTok(tk,t,day.datum)};
+      p.append(span);
+    });
+    const de=el("p",{class:"jp-de",hidden:true},s.de||"");
+    const btn=el("button",{class:"de-btn","aria-pressed":"false","aria-label":"Übersetzung zeigen"},"DE");
+    btn.onclick=()=>{de.hidden=!de.hidden;btn.setAttribute("aria-pressed",String(!de.hidden))};
+    return el("div",{class:"sent"},p,btn,de);
+  });
+  const ql=t.quelle&&safeLink(t.quelle.link);
+  put(box,
+    el("div",{class:"toolbar"},
+      el("div",{class:"chips"},ORDER.map(l=>el("button",{class:"chip","aria-pressed":String(l===JL.level),onclick:()=>{JL.level=l;ss("sp-ja-level",JL);renderJaRead()}},l))),
+      el("label",{class:"switch"},el("input",{type:"checkbox",checked:furi,onchange:e=>{furi=e.target.checked;ss("sp-furi",furi);renderJaRead()}}),"Furigana")),
+    dateNav("ja",renderJaRead),
+    note?el("p",{class:"note"},note):null,
+    el("h1",{class:"ja-title"},t.titel||""),
+    t.titel_de?el("p",{class:"muted",style:"margin-top:0"},t.titel_de):null,
+    sents,
+    t.quelle&&t.quelle.titel?el("p",{class:"source"},"Nach dieser Nachricht: ",ql?el("a",{href:ql,target:"_blank",rel:"noopener"},t.quelle.titel):t.quelle.titel):null,
+    el("button",{class:"big-btn",onclick:()=>finishJa(day,level,t)},"Fertig gelesen"),
+    el("p",{class:"credit"},"Tippe auf ein Wort für Übersetzung und Erklärung, auf „DE“ für die Satzübersetzung. Nach „Fertig gelesen“ passt sich das Niveau an: Brauchst du kaum Hilfe, kommen schwerere Texte. Texte von einer KI (Gemini), ohne Gewähr."));
+}
+function finishJa(day,level,t){
+  const key=day.datum+"|"+level;
+  if(JL.done[key]){toast("Diesen Text hast du schon abgeschlossen.");return}
+  const words=(t.saetze||[]).reduce((n,s)=>n+(s.tokens||[]).filter(x=>x&&x.s&&!x.p).length,0)||1;
+  const r=tapped.size/words;
+  JL.done[key]=1;
+  JL.hist.push({l:level,r:Math.round(r*100)/100});JL.hist=JL.hist.slice(-40);
+  let msg=`Geschafft! Du hast ${tapped.size} von ${words} Wörtern nachgeschlagen.`;
+  const recent=JL.hist.filter(h=>h.l===level).slice(-3),i=ORDER.indexOf(level);
+  if(level===JL.level&&recent.length>=3){
+    const avg=recent.reduce((a,h)=>a+h.r,0)/3;
+    if(avg<0.15&&i<ORDER.length-1){JL.level=ORDER[i+1];JL.hist.push({l:"x",r:0});msg=`Stark! Du brauchst kaum noch Hilfe. Ab jetzt bekommst du ${JL.level}-Texte.`}
+    else if(avg>0.5&&i>0){JL.level=ORDER[i-1];JL.hist.push({l:"x",r:0});msg=`Das war viel Neues. Zurück auf ${JL.level}, bis es leichter fällt.`}
+  }
+  ss("sp-ja-level",JL);toast(msg,4200);renderJaRead();
+}
+function openJaTok(tk,t,date){
+  const kd=t.kanji||{};
+  const chars=[...new Set(tk.s.match(/[\u4e00-\u9fff]/g)||[])];
+  const ex=tk.bsp&&tk.bsp.jp?el("div",{class:"example",hidden:true},el("p",{class:"small-jp"},tk.bsp.jp),tk.bsp.r?el("p",{class:"muted small"},tk.bsp.r):null,el("p",{},tk.bsp.de||"")):null;
+  let exBtn=null;
+  if(ex){exBtn=el("button",{class:"arrow-btn"},"→ In einem anderen Satz");exBtn.onclick=()=>{ex.hidden=!ex.hidden;exBtn.textContent=ex.hidden?"→ In einem anderen Satz":"← Beispiel ausblenden"}}
+  openSheet(
+    el("div",{class:"sheet-head"},
+      el("div",{class:"grow"},el("div",{class:"big jp-font"},tk.s),
+        tk.r&&tk.r!==tk.s?el("div",{class:"reading-line jp-font"},tk.r):null,
+        tk.art?el("span",{class:"tag"},tk.art):null),
+      starBtn(!!W.ja[tk.s],()=>toggleWord("ja",tk.s,{w:tk.s,r:tk.r||"",de:tk.de||"",art:tk.art||"",d:date}))),
+    el("p",{class:"trans"},tk.de||"–"),
+    tk.erkl?el("div",{class:"sec"},el("h3",{},"Warum steht das hier?"),el("p",{style:"margin:0"},tk.erkl)):null,
+    ex?el("div",{class:"sec"},exBtn,ex):null,
+    chars.length?el("div",{class:"sec"},el("h3",{},"Kanji"),chars.map(ch=>{
+      const d=kd[ch]||N5[ch];
+      return el("div",{class:"kcard"},el("div",{class:"kbig"},ch),el("div",{},
+        el("strong",{},d?d.bed:"Keine Erklärung vorhanden"),
+        d?el("div",{class:"muted small jp-font"},"On: "+arr(d.on)+"　Kun: "+arr(d.kun)):null,
+        d&&d.verwendung?el("p",{class:"small"},d.verwendung):null,
+        N5[ch]?el("button",{class:"link",onclick:()=>{closeSheet();goKanji(ch)}},"Im Kanji-Trainer üben →"):null));
+    })):null);
+}
+
+/* ---------- Japanisch: Kana-Trainer ---------- */
+const KH="あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
+const KK="アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+const KR="a i u e o ka ki ku ke ko sa shi su se so ta chi tsu te to na ni nu ne no ha hi fu he ho ma mi mu me mo ya yu yo ra ri ru re ro wa wo n".split(" ");
+const DH="がぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽ";
+const DK="ガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ";
+const DR="ga gi gu ge go za ji zu ze zo da ji zu de do ba bi bu be bo pa pi pu pe po".split(" ");
+const KS=Object.assign({mode:"h",dak:false,st:{}},ls("sp-kana",{}));
+let kCur=null,kLast=null,kBusy=false;
+function kanaPool(){
+  const out=[],add=(chars,ro)=>[...chars].forEach((c,i)=>out.push([c,ro[i]]));
+  if(KS.mode!=="k"){add(KH,KR);if(KS.dak)add(DH,DR)}
+  if(KS.mode!=="h"){add(KK,KR);if(KS.dak)add(DK,DR)}
+  return out;
+}
+const weight=st=>st?Math.pow(2,5-Math.min(5,st.b)):24;
+function pickWeighted(pool,stats,avoid){
+  const ws=pool.map(p=>p[0]===avoid&&pool.length>1?0:weight(stats[p[0]]));
+  let x=Math.random()*ws.reduce((a,b)=>a+b,0);
+  for(let i=0;i<pool.length;i++){x-=ws[i];if(x<=0)return pool[i]}
+  return pool[pool.length-1];
+}
+function statsGrid(chars,stats,current,onPick){
+  return el("div",{class:"grid"},chars.map(c=>{
+    const st=stats[c];
+    return el("button",{class:"cell"+(st?" b"+st.b:"")+(c===current?" cur":""),title:st?`${st.ok} richtig, ${st.no} falsch`:"noch nicht geübt",onclick:onPick?()=>onPick(c):null},c);
+  }));
+}
+function legend(){
+  return el("div",{class:"legend"},
+    el("span",{},el("i",{style:"background:color-mix(in srgb,var(--bad) 22%,var(--surface))"}),"zuletzt falsch"),
+    el("span",{},el("i",{style:"background:color-mix(in srgb,var(--accent) 22%,var(--surface))"}),"wird besser"),
+    el("span",{},el("i",{style:"background:var(--accent)"}),"sicher"),
+    el("span",{},el("i",{style:"border:1px solid var(--line);background:var(--surface)"}),"neu"));
+}
+function summary(chars,stats){
+  let sure=0,prac=0,neu=0;
+  chars.forEach(c=>{const s=stats[c];if(!s)neu++;else if(s.b>=3)sure++;else prac++});
+  return el("div",{class:"stats-sum"},el("span",{},el("b",{},sure)," sicher"),el("span",{},el("b",{},prac)," üben"),el("span",{},el("b",{},neu)," neu"));
+}
+function renderKana(){
+  const box=$("#ja-kana");
+  const modes=[["h","Hiragana"],["k","Katakana"],["b","Beide"]];
+  const pool=kanaPool();
+  if(!kBusy) kCur=pickWeighted(pool,KS.st,kLast&&kLast[0]);
+  const opts=new Set([kCur[1]]);
+  for(const o of shuffle(pool.map(p=>p[1]).filter(r=>r!==kCur[1]))){if(opts.size>=4)break;opts.add(o)}
+  const fb=el("p",{class:"feedback"});
+  const buttons=shuffle([...opts]).map(o=>{const b=el("button",{class:"opt"},o);b.onclick=()=>answerKana(o,buttons,fb);return b});
+  put(box,
+    el("div",{class:"toolbar"},
+      el("div",{class:"chips"},modes.map(([m,l])=>el("button",{class:"chip","aria-pressed":String(KS.mode===m),onclick:()=>{KS.mode=m;ss("sp-kana",KS);kBusy=false;renderKana()}},l))),
+      el("label",{class:"switch"},el("input",{type:"checkbox",checked:KS.dak,onchange:e=>{KS.dak=e.target.checked;ss("sp-kana",KS);kBusy=false;renderKana()}}),"mit ゛゜")),
+    el("div",{class:"trainer-card"},el("div",{class:"kana-big"},kCur[0]),el("div",{class:"options"},buttons),fb),
+    summary(pool.map(p=>p[0]),KS.st),
+    statsGrid(pool.map(p=>p[0]),KS.st,kCur[0]),
+    legend(),
+    el("p",{class:"credit"},"Zeichen, die du falsch hattest, kommen öfter dran. Sicher heißt: mehrmals hintereinander richtig."));
+}
+function answerKana(o,buttons,fb){
+  if(kBusy) return; kBusy=true;
+  const ok=o===kCur[1];
+  const st=KS.st[kCur[0]]||{b:0,ok:0,no:0};
+  if(ok){st.b=Math.min(5,st.b+1);st.ok++}else{st.b=0;st.no++}
+  KS.st[kCur[0]]=st;ss("sp-kana",KS);
+  buttons.forEach(b=>{if(b.textContent===kCur[1])b.classList.add("right");else if(b.textContent===o)b.classList.add("wrong")});
+  fb.textContent=ok?"Richtig!":`${kCur[0]} ist „${kCur[1]}“`;
+  fb.style.color=ok?"var(--good)":"var(--bad)";
+  setTimeout(()=>{kLast=kCur;kBusy=false;if(!$("#ja-kana").hidden)renderKana()},ok?650:1600);
+}
+
+/* ---------- Japanisch: Kanji-Trainer ---------- */
+const N5K=`一|eins|イチ, イツ|ひと(つ)|一つ|ひとつ|ein Stück|Zahlen und Zählen, auch „erster“: 一月 (Januar), 一番 (Nummer eins).
+二|zwei|ニ|ふた(つ)|二人|ふたり|zwei Personen|Zahlen, 二月 (Februar).
+三|drei|サン|みっ(つ)|三日|みっか|der 3. / drei Tage|Zahlen und Datum.
+四|vier|シ|よ, よん, よっ(つ)|四時|よじ|vier Uhr|Zahlen; bei Uhrzeiten よ, sonst meist よん.
+五|fünf|ゴ|いつ(つ)|五月|ごがつ|Mai|Zahlen und Monate.
+六|sechs|ロク|むっ(つ)|六本|ろっぽん|sechs (lange Dinge)|Zahlen, oft mit Zählwörtern.
+七|sieben|シチ|なな(つ)|七時|しちじ|sieben Uhr|Zahlen; gesprochen auch なな.
+八|acht|ハチ|やっ(つ)|八百屋|やおや|Gemüseladen|Zahlen.
+九|neun|キュウ, ク|ここの(つ)|九時|くじ|neun Uhr|Zahlen; bei Uhrzeiten く.
+十|zehn|ジュウ|とお|十分|じゅうぶん|genug|Zahlen; 十分 heißt je nach Lesung „genug“ oder „zehn Minuten“.
+百|hundert|ヒャク|–|三百|さんびゃく|dreihundert|Preise und große Zahlen.
+千|tausend|セン|ち|千円|せんえん|1000 Yen|Preise und große Zahlen.
+万|zehntausend|マン|–|一万円|いちまんえん|10.000 Yen|Große Zahlen und Geldbeträge.
+円|Yen; Kreis|エン|まる(い)|百円|ひゃくえん|100 Yen|Bei Preisen; als まるい „rund“.
+日|Tag; Sonne|ニチ, ジツ|ひ, か|日本|にほん|Japan|Datum, Wochentage und im Namen Japans.
+月|Monat; Mond|ゲツ, ガツ|つき|月曜日|げつようび|Montag|Monate (一月) und Montag.
+火|Feuer|カ|ひ|火曜日|かようび|Dienstag|Dienstag und alles mit Feuer.
+水|Wasser|スイ|みず|水曜日|すいようび|Mittwoch|Wasser und Mittwoch.
+木|Baum|モク, ボク|き|木曜日|もくようび|Donnerstag|Bäume, Holz und Donnerstag.
+金|Gold; Geld|キン|かね|お金|おかね|Geld|Geld, Freitag (金曜日) und Metall.
+土|Erde|ド, ト|つち|土曜日|どようび|Samstag|Samstag und Boden.
+曜|Wochentag|ヨウ|–|日曜日|にちようび|Sonntag|Nur in den Namen der Wochentage.
+本|Buch; Ursprung|ホン|もと|本屋|ほんや|Buchhandlung|Bücher, Zählwort für lange Dinge (〜本) und in 日本.
+人|Mensch|ジン, ニン|ひと|日本人|にほんじん|Japaner:in|Nationalität (〜人 じん), Anzahl Personen (〜人 にん).
+今|jetzt|コン|いま|今日|きょう|heute|Zeitangaben: 今日, 今年, 今週.
+年|Jahr|ネン|とし|今年|ことし|dieses Jahr|Jahreszahlen und Alter.
+時|Zeit; Stunde|ジ|とき|時間|じかん|Zeit|Uhrzeiten (〜時) und „wenn/als“ (時 とき).
+分|Minute; teilen|フン, ブン|わ(かる)|分かる|わかる|verstehen|Minuten (〜分) und „verstehen“.
+半|halb|ハン|なか(ば)|三時半|さんじはん|halb vier|Uhrzeiten und „Hälfte“.
+午|Mittag|ゴ|–|午後|ごご|nachmittags|Bei 午前 (vormittags) und 午後 (nachmittags).
+前|vor; vorne|ゼン|まえ|名前|なまえ|Name|„vor“ räumlich und zeitlich: 駅の前, 三時前.
+後|nach; hinten|ゴ, コウ|あと, うし(ろ)|後で|あとで|später|„danach“ (あとで) und „hinter“ (うしろ).
+上|oben|ジョウ|うえ, あ(がる)|上手|じょうず|geschickt|Position oben, „hinauf“; in 上手 „gut in etwas“.
+下|unten|カ, ゲ|した, くだ(さい)|地下鉄|ちかてつ|U-Bahn|Position unten, „hinunter“, ください.
+左|links|サ|ひだり|左手|ひだりて|linke Hand|Richtungen und Wegbeschreibungen.
+右|rechts|ウ, ユウ|みぎ|右側|みぎがわ|rechte Seite|Richtungen und Wegbeschreibungen.
+中|Mitte; innen|チュウ|なか|中国|ちゅうごく|China|„in/innen“ und „gerade dabei“ (〜中 ちゅう).
+大|groß|ダイ, タイ|おお(きい)|大学|だいがく|Universität|„groß“ und viele Wörter wie 大学, 大切, 大丈夫.
+小|klein|ショウ|ちい(さい), こ|小学校|しょうがっこう|Grundschule|„klein“, oft bei Kindern und Schule.
+長|lang; Leiter|チョウ|なが(い)|社長|しゃちょう|Firmenchef:in|„lang“ und Leitungspositionen (〜長).
+高|hoch; teuer|コウ|たか(い)|高校|こうこう|Oberschule|„hoch“ und „teuer“.
+安|billig; ruhig|アン|やす(い)|安心|あんしん|Beruhigung|„billig“ und „sicher, beruhigt“.
+新|neu|シン|あたら(しい)|新聞|しんぶん|Zeitung|„neu“, auch in 新幹線 (Shinkansen).
+古|alt|コ|ふる(い)|古本|ふるほん|gebrauchtes Buch|„alt“ bei Dingen, nicht bei Menschen.
+多|viel|タ|おお(い)|多分|たぶん|vielleicht|„viele“ und Mengenangaben.
+少|wenig|ショウ|すく(ない), すこ(し)|少し|すこし|ein bisschen|„wenig“, „ein bisschen“.
+白|weiß|ハク|しろ(い)|白い|しろい|weiß|Farbe weiß, auch in 面白い (interessant).
+山|Berg|サン|やま|富士山|ふじさん|Fuji|Berge und viele Orts- und Familiennamen.
+川|Fluss|セン|かわ|川|かわ|Fluss|Flüsse und Familiennamen wie 中川.
+田|Reisfeld|デン|た|田中|たなか|Tanaka (Name)|Felder und sehr oft in Namen.
+天|Himmel|テン|あめ|天気|てんき|Wetter|Wetter und Himmel.
+気|Geist; Stimmung|キ, ケ|–|元気|げんき|gesund, munter|Gefühle, Gesundheit, Wetter (天気), sehr häufig.
+雨|Regen|ウ|あめ|大雨|おおあめ|Starkregen|Wetter.
+電|Elektrizität|デン|–|電話|でんわ|Telefon|Strom und Technik: 電車, 電気.
+車|Wagen; Auto|シャ|くるま|電車|でんしゃ|Zug|Fahrzeuge aller Art.
+道|Weg|ドウ|みち|北海道|ほっかいどう|Hokkaido|Straße, Weg; auch „Kunst, Lehre“ in 柔道.
+駅|Bahnhof|エキ|–|駅員|えきいん|Bahnhofspersonal|Bahnhöfe und Haltestellen.
+店|Laden|テン|みせ|店員|てんいん|Verkäufer:in|Geschäfte und Restaurants.
+会|treffen|カイ|あ(う)|会う|あう|treffen|Treffen, Versammlung und Firma (会社).
+社|Firma; Schrein|シャ|やしろ|会社|かいしゃ|Firma|Firmen und Gesellschaft (社会).
+校|Schule|コウ|–|学校|がっこう|Schule|Schulen aller Art.
+学|lernen|ガク|まな(ぶ)|学生|がくせい|Student:in|Lernen, Studium, Wissenschaft.
+生|Leben; geboren|セイ, ショウ|い(きる), う(まれる)|先生|せんせい|Lehrer:in|Leben, Geburt, Studierende.
+先|vorher; vorne|セン|さき|先週|せんしゅう|letzte Woche|„vorig“ (先週, 先月) und in 先生.
+名|Name|メイ|な|有名|ゆうめい|berühmt|Namen und Berühmtheit.
+国|Land|コク|くに|外国|がいこく|Ausland|Länder und Nationen.
+語|Sprache; Wort|ゴ|かた(る)|日本語|にほんご|Japanisch|Sprachen: 〜語.
+英|England; hervorragend|エイ|–|英語|えいご|Englisch|Vor allem in 英語.
+話|sprechen|ワ|はな(す), はなし|電話|でんわ|Telefon|Sprechen und Geschichten.
+読|lesen|ドク|よ(む)|読書|どくしょ|Lesen (Hobby)|Alles mit Lesen.
+書|schreiben|ショ|か(く)|辞書|じしょ|Wörterbuch|Schreiben und Bücher.
+聞|hören; fragen|ブン|き(く)|新聞|しんぶん|Zeitung|Hören, fragen und Zeitung.
+見|sehen|ケン|み(る)|見物|けんぶつ|Besichtigung|Sehen, schauen, zeigen (見せる).
+言|sagen|ゲン, ゴン|い(う)|言葉|ことば|Wort|Sagen und Sprache.
+食|essen|ショク|た(べる)|食べ物|たべもの|Essen|Essen und Mahlzeiten (食事).
+飲|trinken|イン|の(む)|飲み物|のみもの|Getränk|Trinken; auch Medikamente nehmen (薬を飲む).
+行|gehen|コウ, ギョウ|い(く), おこな(う)|銀行|ぎんこう|Bank|Gehen, Reisen (旅行) und Reihe.
+来|kommen|ライ|く(る), き(ます)|来年|らいねん|nächstes Jahr|„kommen“ und „nächste/r“ (来週, 来月).
+出|hinaus|シュツ|で(る), だ(す)|出口|でぐち|Ausgang|Hinausgehen, abschicken, erscheinen.
+入|hinein|ニュウ|はい(る), い(れる)|入口|いりぐち|Eingang|Hineingehen und hineinlegen.
+休|ruhen|キュウ|やす(む)|休み|やすみ|Pause; Ferien|Pausen, Urlaub, Feiertage.
+買|kaufen|バイ|か(う)|買い物|かいもの|Einkauf|Einkaufen.
+立|stehen|リツ|た(つ)|立つ|たつ|aufstehen|Stehen, aufstellen, gründen.
+外|außen|ガイ|そと|外国人|がいこくじん|Ausländer:in|Draußen und Ausland.
+父|Vater|フ|ちち|お父さん|おとうさん|Vater|Familie: 父 für den eigenen, お父さん für fremde oder zum Anreden.
+母|Mutter|ボ|はは|お母さん|おかあさん|Mutter|Familie: 母 für die eigene, お母さん für fremde oder zum Anreden.
+子|Kind|シ|こ|子ども|こども|Kind|Kinder; auch in Mädchennamen (〜子).
+男|Mann|ダン|おとこ|男の人|おとこのひと|Mann|Männlich, auf Toilettenschildern.
+女|Frau|ジョ|おんな|女の子|おんなのこ|Mädchen|Weiblich, auf Toilettenschildern.
+友|Freund:in|ユウ|とも|友だち|ともだち|Freund:in|Freundschaft.
+手|Hand|シュ|て|切手|きって|Briefmarke|Hand; Personen mit Fähigkeit (選手, 歌手).
+目|Auge|モク|め|一つ目|ひとつめ|der/die erste|Auge; Ordnungszahlen mit 〜目.
+口|Mund|コウ|くち|入口|いりぐち|Eingang|Mund und Öffnungen (入口, 出口).
+耳|Ohr|ジ|みみ|耳|みみ|Ohr|Körperteil Ohr.
+足|Fuß; Bein|ソク|あし|足りる|たりる|ausreichen|Fuß, Bein; „genügen“.
+何|was|カ|なに, なん|何時|なんじ|wie spät|Fragewort für „was“ und „wie viele“.
+毎|jede/r|マイ|–|毎日|まいにち|jeden Tag|„jede/r“: 毎朝, 毎週, 毎年.
+週|Woche|シュウ|–|今週|こんしゅう|diese Woche|Wochen: 先週, 来週, 週末.
+間|Zwischenraum; Zeitraum|カン|あいだ, ま|時間|じかん|Zeit|Zeitdauer und „zwischen“.
+東|Osten|トウ|ひがし|東京|とうきょう|Tokio|Himmelsrichtung Ost und in Ortsnamen.
+西|Westen|セイ, サイ|にし|関西|かんさい|Kansai-Region|Himmelsrichtung West.
+南|Süden|ナン|みなみ|南口|みなみぐち|Südausgang|Himmelsrichtung Süd, z. B. Bahnhofsausgänge.
+北|Norden|ホク|きた|北口|きたぐち|Nordausgang|Himmelsrichtung Nord.`.split("\n").map(line=>{
+  const [k,bed,on,kun,bj,br,bd,verw]=line.split("|");
+  return {k,bed,on:on.split(", "),kun:kun==="–"?[]:kun.split(", "),bsp:{jp:bj,r:br,de:bd},verwendung:verw};
+});
+const N5=Object.fromEntries(N5K.map(o=>[o.k,o]));
+const KJ=Object.assign({st:{},cur:null},ls("sp-kanji",{}));
+let kjRevealed=false;
+function goKanji(ch){KJ.cur=ch;kjRevealed=false;ss("sp-kanji",KJ);NAV.lang="ja";NAV.ja="kanji";show()}
+function nextKanji(){KJ.cur=pickWeighted(N5K.map(o=>[o.k]),KJ.st,KJ.cur)[0];kjRevealed=false;ss("sp-kanji",KJ);renderKanji()}
+function renderKanji(){
+  const box=$("#ja-kanji");
+  if(!KJ.cur||!N5[KJ.cur]){KJ.cur=pickWeighted(N5K.map(o=>[o.k]),KJ.st,null)[0];ss("sp-kanji",KJ)}
+  const k=N5[KJ.cur];
+  const rate=ok=>{const st=KJ.st[k.k]||{b:0,ok:0,no:0};if(ok){st.b=Math.min(5,st.b+1);st.ok++}else{st.b=0;st.no++}KJ.st[k.k]=st;nextKanji()};
+  const details=kjRevealed?el("div",{class:"details"},
+      el("p",{class:"trans"},k.bed),
+      el("p",{class:"jp-font",style:"margin:.2rem 0"},el("span",{class:"muted"},"On: "),arr(k.on),"　",el("span",{class:"muted"},"Kun: "),arr(k.kun)),
+      el("div",{class:"example"},el("p",{class:"small-jp"},el("ruby",{},k.bsp.jp,el("rt",{},k.bsp.r))),el("p",{},k.bsp.de)),
+      el("p",{class:"small",style:"margin-top:.7rem"},el("strong",{},"Verwendung: "),k.verwendung),
+      el("div",{class:"row2"},el("button",{class:"again",onclick:()=>rate(false)},"Nochmal"),el("button",{class:"knew",onclick:()=>rate(true)},"Gewusst"))):
+    el("button",{class:"reveal",onclick:()=>{kjRevealed=true;renderKanji()}},"Aufdecken");
+  const all=N5K.map(o=>o.k);
+  put(box,
+    el("div",{class:"trainer-card kanji-card"},el("div",{class:"kana-big"},k.k),details),
+    buildPad(k.k),
+    summary(all,KJ.st),
+    statsGrid(all,KJ.st,k.k,c=>{KJ.cur=c;kjRevealed=false;ss("sp-kanji",KJ);renderKanji();window.scrollTo({top:0,behavior:"smooth"})}),
+    legend(),
+    el("p",{class:"credit"},"Überleg dir die Bedeutung, deck auf und sei ehrlich: „Nochmal“ bringt das Kanji bald zurück. Tippe ein Kanji im Raster an, um es direkt zu üben. Strichfolgen: KanjiVG von Ulrich Apel, Lizenz CC BY-SA 3.0."));
+}
+const KVG={};
+async function loadStrokes(ch){
+  if(KVG[ch]) return KVG[ch];
+  const cached=ls("sp-kvg:"+ch,null);
+  if(cached) return (KVG[ch]=cached);
+  const hex=ch.codePointAt(0).toString(16).padStart(5,"0");
+  for(const u of [`https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${hex}.svg`,`https://cdn.jsdelivr.net/gh/KanjiVG/kanjivg@master/kanji/${hex}.svg`]){
+    try{
+      const r=await fetch(u);if(!r.ok) continue;
+      const ds=[...(await r.text()).matchAll(/<path[^>]*?\sd="([^"]+)"/g)].map(m=>m[1]);
+      if(ds.length){ss("sp-kvg:"+ch,ds);return (KVG[ch]=ds)}
+    }catch(e){}
+  }
+  throw new Error("Strichfolge nicht gefunden");
+}
+const NS="http://www.w3.org/2000/svg";
+function svgEl(tag,attrs){const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs||{}))e.setAttribute(k,v);return e}
+function buildPad(ch){
+  const grid=svgEl("svg",{viewBox:"0 0 109 109",class:"gridlines","aria-hidden":"true"});
+  grid.append(svgEl("line",{x1:54.5,y1:0,x2:54.5,y2:109}),svgEl("line",{x1:0,y1:54.5,x2:109,y2:54.5}));
+  const guide=svgEl("svg",{viewBox:"0 0 109 109",class:"guide","aria-hidden":"true"});
+  const anim=svgEl("svg",{viewBox:"0 0 109 109",class:"anim","aria-hidden":"true"});
+  const canvas=el("canvas",{"aria-label":"Zeichenfläche: mit dem Finger nachzeichnen"});
+  const pad=el("div",{class:"pad"},grid,guide,anim,canvas);
+  const status=el("p",{class:"muted small",style:"text-align:center;margin:.5rem 0 0"},"Strichfolge wird geladen …");
+  let strokes=null;
+  const play=el("button",{disabled:true},"▶ Strichfolge");
+  const guideBtn=el("button",{"aria-pressed":"true"},"Vorlage");
+  const clear=el("button",{},"Löschen");
+  const ink=setupCanvas(canvas);
+  play.onclick=()=>{
+    if(!strokes) return;
+    anim.replaceChildren();
+    strokes.forEach((d,i)=>{
+      const p=svgEl("path",{d});anim.append(p);
+      const L=p.getTotalLength();
+      p.style.strokeDasharray=L;p.style.strokeDashoffset=L;
+      const start=p.getPointAtLength(0);
+      const num=svgEl("text",{x:start.x-6,y:start.y-2});num.textContent=i+1;num.style.opacity=0;anim.append(num);
+      p.getBoundingClientRect();
+      p.style.transition=`stroke-dashoffset .5s ease ${i*0.6}s`;
+      num.style.transition=`opacity .2s ${i*0.6}s`;
+      requestAnimationFrame(()=>{p.style.strokeDashoffset="0";num.style.opacity=1});
+    });
+  };
+  guideBtn.onclick=()=>{const on=guide.style.visibility==="hidden";guide.style.visibility=on?"visible":"hidden";guideBtn.setAttribute("aria-pressed",String(on))};
+  clear.onclick=()=>{ink.clear();anim.replaceChildren()};
+  loadStrokes(ch).then(ds=>{
+    strokes=ds;ds.forEach(d=>guide.append(svgEl("path",{d})));
+    play.disabled=false;
+    status.textContent=`${ds.length} ${ds.length===1?"Strich":"Striche"}. Tippe auf ▶ und zeichne dann mit dem Finger nach.`;
+  }).catch(()=>{status.textContent="Strichfolge konnte nicht geladen werden. Bist du online? Zeichnen geht trotzdem."});
+  return el("div",{class:"pad-wrap"},pad,status,el("div",{class:"pad-btns"},play,guideBtn,clear));
+}
+function setupCanvas(c){
+  const ctx=c.getContext("2d");let drawing=false,last=null,ready=false;
+  const size=()=>{
+    const r=c.getBoundingClientRect();if(!r.width) return;
+    const dpr=window.devicePixelRatio||1;
+    c.width=Math.round(r.width*dpr);c.height=Math.round(r.height*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineCap="round";ctx.lineJoin="round";
+    ctx.lineWidth=Math.max(6,r.width/30);
+    ctx.strokeStyle=ctx.fillStyle=getComputedStyle(document.body).getPropertyValue("--ink").trim()||"#222";
+    ready=true;
+  };
+  const pos=e=>{const r=c.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]};
+  c.addEventListener("pointerdown",e=>{
+    if(!ready) size();
+    e.preventDefault();c.setPointerCapture(e.pointerId);drawing=true;last=pos(e);
+    ctx.beginPath();ctx.arc(last[0],last[1],ctx.lineWidth/2,0,Math.PI*2);ctx.fill();
+  });
+  c.addEventListener("pointermove",e=>{
+    if(!drawing) return;
+    const p=pos(e);ctx.beginPath();ctx.moveTo(last[0],last[1]);ctx.lineTo(p[0],p[1]);ctx.stroke();last=p;
+  });
+  const stop=()=>{drawing=false};
+  c.addEventListener("pointerup",stop);c.addEventListener("pointercancel",stop);
+  requestAnimationFrame(size);
+  return {clear:()=>{const r=c.getBoundingClientRect();ctx.clearRect(0,0,r.width,r.height)}};
+}
+
+/* ---------- Navigation ---------- */
+const TABS={it:[["text","Text"],["words","Vokabeln"]],ja:[["kana","Kana"],["read","Lesen"],["kanji","Kanji"],["words","Wörter"]]};
+const NAV=Object.assign({lang:"it",it:"text",ja:"read"},ls("sp-nav",{}));
+const RENDER={"it-text":renderItText,"it-words":()=>renderWords("it"),"ja-kana":renderKana,"ja-read":renderJaRead,"ja-kanji":renderKanji,"ja-words":()=>renderWords("ja")};
+function show(){
+  const lang=NAV.lang,tab=NAV[lang];
+  document.body.dataset.lang=lang;
+  $("#lang-it").setAttribute("aria-pressed",String(lang==="it"));
+  $("#lang-ja").setAttribute("aria-pressed",String(lang==="ja"));
+  $("#sub").replaceChildren(...TABS[lang].map(([id,label])=>el("button",{role:"tab","aria-selected":String(id===tab),onclick:()=>{NAV[lang]=id;show()}},label)));
+  document.querySelectorAll("main>section").forEach(s=>{s.hidden=s.id!==`${lang}-${tab}`});
+  ss("sp-nav",NAV);
+  closeSheet();
+  window.scrollTo(0,0);
+  RENDER[`${lang}-${tab}`]();
+}
+$("#lang-it").onclick=()=>{NAV.lang="it";show()};
+$("#lang-ja").onclick=()=>{NAV.lang="ja";show()};
+show();
+})();
+</script>
+</body>
+</html>
