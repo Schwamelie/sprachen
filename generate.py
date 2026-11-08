@@ -141,44 +141,49 @@ def read_feed(url, n=12):
 
 
 def gemini(prompt, temperature=0.7):
+    """Fragt Gemini. Bei Überlastung wird sofort das nächste Modell probiert,
+    gewartet wird erst, wenn alle Modelle gerade nicht können."""
     body = json.dumps({
         "contents": [{"role": "user", "parts": [{"text": prompt}]}],
         "generationConfig": {"responseMimeType": "application/json", "temperature": temperature,
                              "maxOutputTokens": 32768},
     }).encode()
-    last = None
     models = list(MODELS)
-    for model in models:
-        for attempt in range(3):
+    last = None
+    for rnd in range(4):
+        for model in list(models):
             req = urllib.request.Request(
                 f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
                 data=body, method="POST",
                 headers={"Content-Type": "application/json", "x-goog-api-key": KEY})
             try:
-                with urllib.request.urlopen(req, timeout=240) as r:
+                with urllib.request.urlopen(req, timeout=180) as r:
                     res = json.loads(r.read())
                 parts = res["candidates"][0]["content"]["parts"]
                 text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
                 text = re.sub(r"^```(?:json)?|```$", "", text.strip()).strip()
-                time.sleep(4)  # sanft mit dem Gratis-Limit umgehen
+                time.sleep(3)  # sanft mit dem Gratis-Limit umgehen
                 return json.loads(text)
             except urllib.error.HTTPError as e:
                 msg = e.read().decode("utf-8", "replace")[:300]
                 last = f"{model}: HTTP {e.code} {msg}"
-                log(last)
+                log(f"{model}: HTTP {e.code}")
                 if e.code in (401, 403):
                     raise RuntimeError("API-Schlüssel ungültig oder nicht freigeschaltet: " + last)
                 if e.code in (400, 404):
-                    # Google nennt bei veralteten Modellen oft den Nachfolger: den automatisch mitprobieren
+                    # Modell gibt es nicht (mehr): streichen, genannten Nachfolger mitprobieren
+                    models.remove(model)
                     for m in re.findall(r"models/([\w.\-]+)", msg):
                         if m != model and m not in models:
                             models.append(m)
-                    break  # nächstes Modell probieren
-                time.sleep(30 * (attempt + 1))  # 429 oder 5xx: warten und nochmal
             except Exception as e:
                 last = f"{model}: {e}"
                 log(last)
-                time.sleep(5)
+        if not models:
+            break
+        wait = 20 * (rnd + 1)
+        log(f"Alle Modelle gerade ausgelastet, warte {wait} s")
+        time.sleep(wait)
     raise RuntimeError(last or "Gemini nicht erreichbar")
 
 
