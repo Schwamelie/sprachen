@@ -9,6 +9,7 @@ Läuft über GitHub Actions. Braucht das Repository-Secret GEMINI_API_KEY
 (kostenlose Stufe von Google AI Studio, ohne Zahlungskonto).
 Nur Python-Standardbibliothek, nichts zu installieren.
 """
+import difflib
 import html
 import json
 import os
@@ -24,7 +25,8 @@ from zoneinfo import ZoneInfo
 KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 MODELS = ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-flash-latest"]
 NOW = datetime.now(ZoneInfo("Europe/Berlin"))
-DEADLINE = time.time() + 40 * 60  # nach 40 Minuten aufhören und speichern, was fertig ist
+DEADLINE = time.time() + 35 * 60  # nach 35 Minuten aufhören und speichern, was fertig ist;
+# Fehlendes wird beim nächsten Lauf nachgeholt
 TODAY = NOW.strftime("%Y-%m-%d")
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 UA = {"User-Agent": "Mozilla/5.0 (Sprachen-Lernapp; GitHub Actions)"}
@@ -180,7 +182,7 @@ def gemini(prompt, temperature=0.7):
                 parts = res["candidates"][0]["content"]["parts"]
                 text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
                 text = re.sub(r"^```(?:json)?|```$", "", text.strip()).strip()
-                time.sleep(3)  # sanft mit dem Gratis-Limit umgehen
+                time.sleep(8)  # Gratis-Stufe: nur wenige Anfragen pro Minute
                 return json.loads(text)
             except urllib.error.HTTPError as e:
                 msg = e.read().decode("utf-8", "replace")[:300]
@@ -199,7 +201,7 @@ def gemini(prompt, temperature=0.7):
                 log(last)
         if not models:
             break
-        wait = 20 * (rnd + 1)
+        wait = 30 * (rnd + 1)
         log(f"Alle Modelle gerade ausgelastet, warte {wait} s")
         time.sleep(wait)
     raise RuntimeError(last or "Gemini nicht erreichbar")
@@ -239,23 +241,75 @@ def italian():
     return obj
 
 
-def ja_tokens(level, sents):
-    """Wort-für-Wort-Erklärungen in kleinen Portionen, damit keine Anfrage zu lang dauert."""
+def is_placeholder(sent):
+    t = sent.get("tokens") or []
+    return len(t) <= 1 and (not t or t[0].get("art") == "Satz")
+
+
+def sent_text(sent):
+    return "".join(str(t.get("s", "")) for t in sent.get("tokens") or [] if isinstance(t, dict))
+
+
+def ask_tokens(level, texts):
+    res = gemini(JA_TOKEN_PROMPT.format(level=level, sents=json.dumps(texts, ensure_ascii=False)))
+    got = res.get("saetze", []) if isinstance(res, dict) else []
+    if len(got) != len(texts):
+        raise RuntimeError(f"{len(got)} statt {len(texts)} Sätze zurück")
     out = []
-    for i in range(0, len(sents), 4):
-        part = sents[i:i + 4]
-        toks = None
+    for g, txt in zip(got, texts):
+        toks = g.get("tokens") if isinstance(g, dict) else None
+        toks = [t for t in toks or [] if isinstance(t, dict) and t.get("s")]
+        # Tokens müssen den Satz ergeben (Leerzeichen egal), sonst gilt der Satz als nicht erklärt
+        a, b = re.sub(r"\s", "", "".join(t["s"] for t in toks)), re.sub(r"\s", "", txt)
+        ok = toks and difflib.SequenceMatcher(None, a, b).ratio() >= 0.9
+        out.append(toks if ok else None)
+    return out
+
+
+def complete(level, obj):
+    """Ergänzt fehlende Wort- und Kanji-Erklärungen. Gibt True zurück, wenn sich etwas geändert hat."""
+    changed = False
+    sents = obj.get("saetze") or []
+    todo = [i for i, x in enumerate(sents) if is_placeholder(x)]
+    size = 3
+    while todo and time.time() < DEADLINE:
+        part = todo[:size]
         try:
-            res = gemini(JA_TOKEN_PROMPT.format(level=level, sents=json.dumps([x["jp"] for x in part], ensure_ascii=False)))
-            got = res.get("saetze", []) if isinstance(res, dict) else []
-            if len(got) == len(part):
-                toks = [g.get("tokens") if isinstance(g, dict) and isinstance(g.get("tokens"), list) else None for g in got]
+            res = ask_tokens(level, [sent_text(sents[i]) for i in part])
         except Exception as e:
             log(level, "Wort-Erklärungen fehlgeschlagen:", e)
-        for j, x in enumerate(part):
-            t = toks[j] if toks and toks[j] else [{"s": x["jp"], "r": "", "de": x.get("de", ""), "art": "Satz"}]
-            out.append({"tokens": t, "de": x.get("de", "")})
-    return out
+            res = [None] * len(part)
+        done = [i for i, t in zip(part, res) if t]
+        for i, t in zip(part, res):
+            if t:
+                sents[i]["tokens"] = t
+                changed = True
+        if done:
+            todo = [i for i in todo if i not in done]
+            size = 3
+        elif size > 1:
+            size = 1  # einzeln nochmal probieren
+        else:
+            log(level, "Satz", part[0] + 1, "bleibt ohne Wort-Erklärung")
+            todo = todo[1:]
+    kanji = obj.get("kanji") if isinstance(obj.get("kanji"), dict) else {}
+    used = {c for x in sents for c in KANJI_RE.findall(sent_text(x))} | set(KANJI_RE.findall(str(obj.get("titel", ""))))
+    miss = sorted(used - set(kanji))
+    for k in range(0, len(miss), 20):
+        if time.time() > DEADLINE:
+            break
+        try:
+            extra = gemini(JA_KANJI_FILL.format(chars="".join(miss[k:k + 20])))
+            new = {c: v for c, v in extra.items() if isinstance(v, dict) and c in used}
+            if new:
+                kanji.update(new)
+                changed = True
+        except Exception as e:
+            log(level, "Kanji-Erklärung fehlgeschlagen:", e)
+    obj["kanji"] = kanji
+    left = sum(is_placeholder(x) for x in sents), len(used - set(kanji))
+    log(level, f"noch offen: {left[0]} Sätze ohne Wort-Erklärung, {left[1]} Kanji ohne Erklärung")
+    return changed
 
 
 def japanese():
@@ -292,20 +346,11 @@ def japanese():
             if not best:
                 raise RuntimeError("kein Text")
             _, obj, cs = best
-            # 2. Wörter erklären
-            sents = ja_tokens(lvl, cs)
-            obj["saetze"] = sents
-            # 3. Kanji erklären
-            used = {c for x in cs for c in KANJI_RE.findall(x["jp"])} | set(KANJI_RE.findall(str(obj.get("titel", ""))))
-            kanji = {}
-            miss = sorted(used)
-            for k in range(0, len(miss), 25):
-                try:
-                    extra = gemini(JA_KANJI_FILL.format(chars="".join(miss[k:k + 25])))
-                    kanji.update({c: v for c, v in extra.items() if isinstance(v, dict)})
-                except Exception as e:
-                    log("Kanji-Erklärung fehlgeschlagen:", e)
-            obj["kanji"] = kanji
+            # 2. Wörter und Kanji erklären (Fehlendes holt der nächste Lauf nach)
+            obj["saetze"] = [{"tokens": [{"s": x["jp"], "r": "", "de": x.get("de", ""), "art": "Satz"}],
+                              "de": x.get("de", "")} for x in cs]
+            obj["kanji"] = {}
+            complete(lvl, obj)
             if head:
                 obj["quelle"] = {"titel": head["titolo"], "link": head["link"]}
             out["levels"][lvl] = obj
@@ -365,6 +410,26 @@ def main():
             log(lang, "gespeichert")
         except Exception as e:
             log(lang, "Fehler:", e)
+    # Fehlende Erklärungen der letzten Tage nachholen (heute zuerst)
+    d = os.path.join(DATA, "ja")
+    for f in sorted(os.listdir(d) if os.path.isdir(d) else [], reverse=True)[:4]:
+        if time.time() > DEADLINE or not re.fullmatch(r"\d{4}-\d{2}-\d{2}\.json", f):
+            continue
+        fp = os.path.join(d, f)
+        try:
+            with open(fp, encoding="utf-8") as fh:
+                day = json.load(fh)
+            if day.get("v", 1) < JA_VERSION:
+                continue
+            changed = False
+            for lvl, obj in (day.get("levels") or {}).items():
+                changed |= complete(lvl, obj)
+            if changed:
+                with open(fp, "w", encoding="utf-8") as fh:
+                    json.dump(day, fh, ensure_ascii=False, separators=(",", ":"))
+                log(f, "ergänzt")
+        except Exception as e:
+            log(f, "Nachholen fehlgeschlagen:", e)
     rebuild_index()
     if ok == 0:
         sys.exit(1)
