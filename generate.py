@@ -47,12 +47,21 @@ N5_TOPICS = [
 ]
 
 JA_RULES = {
-    "N5": "4–6 sehr kurze Sätze. Nur N5-Wortschatz und -Grammatik (です/ます, は/が/を/に/で/へ/と/も/の, "
-          "～たい, ～ています, ～ましょう). Nur N5-Kanji, alles andere in Hiragana oder Katakana.",
-    "N4": "5–7 kurze Sätze. Wortschatz und Grammatik bis N4 (einfache Form, ～と思います, ～たり～たり, "
-          "～ことができる, ～から/ので, ～ても). Kanji bis N4, seltenere Wörter in Kana.",
-    "N3": "6–8 Sätze in einfachem Nachrichtenstil. Wortschatz, Grammatik und Kanji bis N3.",
+    "N5": "10–12 kurze Sätze in 2–3 Absätzen, eine kleine zusammenhängende Geschichte. Nur N5-Wortschatz und -Grammatik "
+          "(です/ます, は/が/を/に/で/へ/と/も/の, ～たい, ～ています, ～ましょう). "
+          "KANJI: Schreibe JEDES Wort, das ein N5-Kanji hat, mit Kanji, nicht in Hiragana, z. B. 今日, 私, 朝, 毎日, 学校, "
+          "大学, 先生, 友達, 時間, 天気, 雨, 山, 川, 駅, 電車, 食べます, 飲みます, 行きます, 来ます, 見ます, 読みます, "
+          "書きます, 買います, 話します, 休みます, 大きい, 小さい, 新しい, 高い, 安い, 白い, 一つ, 二人, 何, 上, 下, 中, 前, 後. "
+          "Uhrzeiten und Daten mit Kanji (七時, 月曜日). Verwende mindestens 20 verschiedene Kanji. "
+          "Nur Wörter ohne N5-Kanji in Hiragana oder Katakana.",
+    "N4": "12–15 Sätze in 3 Absätzen. Wortschatz und Grammatik bis N4 (einfache Form, ～と思います, ～たり～たり, "
+          "～ことができる, ～から/ので, ～ても). KANJI: Schreibe jedes Wort mit Kanji bis N4 auch in Kanji "
+          "(z. B. 会社, 仕事, 家族, 料理, 旅行, 運動, 始めます, 使います, 思います). Mindestens 35 verschiedene Kanji.",
+    "N3": "14–18 Sätze in 3–4 Absätzen in einfachem Nachrichtenstil. Wortschatz, Grammatik und Kanji bis N3, "
+          "Wörter mit Kanji immer in Kanji. Mindestens 50 verschiedene Kanji.",
 }
+JA_MIN = {"N5": (9, 15), "N4": (11, 28), "N3": (12, 40)}  # (Sätze, verschiedene Kanji) mindestens
+JA_VERSION = 2
 
 IT_PROMPT = """Du bist Italienischlehrer:in für eine deutschsprachige Lernende auf Niveau B1–B2.
 Heute ist {date}. Hier sind aktuelle Schlagzeilen italienischer Nachrichtenseiten (JSON):
@@ -75,7 +84,7 @@ Gib für jede dieser Wortformen aus dem Text einen Glossar-Eintrag für eine deu
 
 Antworte NUR mit JSON: {{"wortform":{{"de":"...","lemma":"...","info":"kurze Grammatikinfo auf Deutsch oder leer"}}}}"""
 
-JA_PROMPT = """Du bist Japanischlehrer:in für eine deutschsprachige Lernende. Schreibe einen kurzen japanischen Lesetext auf JLPT-Niveau {level}.
+JA_PROMPT = """Du bist Japanischlehrer:in für eine deutschsprachige Lernende. Schreibe einen längeren japanischen Lesetext auf JLPT-Niveau {level}.
 Thema: {topic}
 Vorgaben für das Niveau: {rules}
 
@@ -146,7 +155,7 @@ def gemini(prompt, temperature=0.7):
     body = json.dumps({
         "contents": [{"role": "user", "parts": [{"text": prompt}]}],
         "generationConfig": {"responseMimeType": "application/json", "temperature": temperature,
-                             "maxOutputTokens": 32768},
+                             "maxOutputTokens": 65536},
     }).encode()
     models = list(MODELS)
     last = None
@@ -226,7 +235,7 @@ def japanese():
     for f in JA_FEEDS:
         heads += read_feed(f, 10)
     day = NOW.toordinal()
-    out = {"datum": TODAY, "levels": {}}
+    out = {"datum": TODAY, "v": JA_VERSION, "levels": {}}
     for i, lvl in enumerate(("N5", "N4", "N3")):
         head = None
         if lvl == "N5" or not heads:
@@ -236,10 +245,24 @@ def japanese():
             topic = ("Eine stark vereinfachte Nacherzählung dieser aktuellen japanischen Nachricht in eigenen Worten "
                      f"(keine Sätze übernehmen, keine Fakten erfinden): {head['titolo']} – {head['descrizione']}")
         try:
-            obj = gemini(JA_PROMPT.format(level=lvl, topic=topic, rules=JA_RULES[lvl]))
-            sents = [s for s in obj.get("saetze", []) if isinstance(s, dict) and isinstance(s.get("tokens"), list)]
-            if not sents:
+            best = None
+            for attempt in range(3):
+                try:
+                    cand = gemini(JA_PROMPT.format(level=lvl, topic=topic, rules=JA_RULES[lvl]))
+                except Exception as e:
+                    log(lvl, "Versuch", attempt + 1, "fehlgeschlagen:", e)
+                    continue
+                cs = [s for s in cand.get("saetze", []) if isinstance(s, dict) and isinstance(s.get("tokens"), list)]
+                nk = len({c for s in cs for t in s["tokens"] if isinstance(t, dict) for c in KANJI_RE.findall(str(t.get("s", "")))})
+                score = (len(cs) >= JA_MIN[lvl][0]) + (nk >= JA_MIN[lvl][1]), len(cs) + nk
+                log(lvl, f"Versuch {attempt + 1}: {len(cs)} Sätze, {nk} Kanji")
+                if cs and (best is None or score > best[0]):
+                    best = (score, cand, cs)
+                if score[0] == 2:
+                    break
+            if not best:
                 raise RuntimeError("keine Sätze in der Antwort")
+            _, obj, sents = best
             obj["saetze"] = sents
             kanji = obj.get("kanji") if isinstance(obj.get("kanji"), dict) else {}
             used = {c for s in sents for t in s["tokens"] if isinstance(t, dict) for c in KANJI_RE.findall(str(t.get("s", "")))}
@@ -274,6 +297,17 @@ def save(lang, obj):
         json.dump(obj, f, ensure_ascii=False, separators=(",", ":"))
 
 
+def outdated(lang):
+    """Japanische Tagesseite im alten Format (kurz, kaum Kanji)? Dann neu erzeugen."""
+    if lang != "ja":
+        return False
+    try:
+        with open(path_for(lang), encoding="utf-8") as f:
+            return json.load(f).get("v", 1) < JA_VERSION
+    except Exception:
+        return True
+
+
 def rebuild_index():
     idx = {}
     for lang in ("it", "ja"):
@@ -291,7 +325,7 @@ def main():
         sys.exit(1)
     ok = 0
     for lang, fn in (("it", italian), ("ja", japanese)):
-        if os.path.exists(path_for(lang)):
+        if os.path.exists(path_for(lang)) and not outdated(lang):
             log(lang, "für", TODAY, "gibt es schon")
             ok += 1
             continue
