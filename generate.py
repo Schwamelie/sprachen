@@ -24,6 +24,7 @@ from zoneinfo import ZoneInfo
 KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 MODELS = ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-flash-latest"]
 NOW = datetime.now(ZoneInfo("Europe/Berlin"))
+DEADLINE = time.time() + 40 * 60  # nach 40 Minuten aufhören und speichern, was fertig ist
 TODAY = NOW.strftime("%Y-%m-%d")
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 UA = {"User-Agent": "Mozilla/5.0 (Sprachen-Lernapp; GitHub Actions)"}
@@ -84,24 +85,30 @@ Gib für jede dieser Wortformen aus dem Text einen Glossar-Eintrag für eine deu
 
 Antworte NUR mit JSON: {{"wortform":{{"de":"...","lemma":"...","info":"kurze Grammatikinfo auf Deutsch oder leer"}}}}"""
 
-JA_PROMPT = """Du bist Japanischlehrer:in für eine deutschsprachige Lernende. Schreibe einen längeren japanischen Lesetext auf JLPT-Niveau {level}.
+JA_TEXT_PROMPT = """Du bist Japanischlehrer:in für eine deutschsprachige Lernende. Schreibe einen längeren japanischen Lesetext auf JLPT-Niveau {level}.
 Thema: {topic}
 Vorgaben für das Niveau: {rules}
 
-Zerlege den Text in Sätze und jeden Satz in Tokens: Wörter, Partikeln und Verbendungen als sinnvolle Lerneinheiten, Satzzeichen als eigene Tokens. Die Tokens eines Satzes ergeben hintereinander genau den Satz.
+Gib jeden Satz einzeln an, mit deutscher Übersetzung.
+Antworte NUR mit JSON in genau diesem Format:
+{{"titel":"...","titel_de":"...","saetze":[{{"jp":"...","de":"..."}}]}}"""
+
+JA_TOKEN_PROMPT = """Du bist Japanischlehrer:in für eine deutschsprachige Lernende (Niveau {level}).
+Hier sind japanische Sätze (JSON-Liste):
+{sents}
+
+Zerlege jeden Satz in Tokens: Wörter, Partikeln und Verbendungen als sinnvolle Lerneinheiten, Satzzeichen als eigene Tokens. Die Tokens eines Satzes ergeben hintereinander GENAU den Satz, ohne etwas zu ändern.
 Für jedes Token außer Satzzeichen:
-- "s": Schreibung wie im Text
+- "s": Schreibung wie im Satz
 - "r": Lesung in Hiragana (auch bei reinen Kana-Wörtern)
 - "de": deutsche Bedeutung im Kontext
 - "art": Wortart auf Deutsch, z. B. "Nomen", "Verb (te-Form)", "Partikel", "i-Adjektiv"
 - "erkl": 1–2 Sätze auf Deutsch, WARUM dieses Wort bzw. dieser Wortteil genau hier steht und welche grammatische Funktion es hat. Bei Partikeln und Verbformen besonders genau.
 - "bsp": ein anderer einfacher Beispielsatz mit diesem Wort: {{"jp":"...","r":"ganzer Satz in Hiragana","de":"..."}}
 Satzzeichen so: {{"s":"。","p":true}}
-Zu jedem Satz eine deutsche Übersetzung "de".
-Für JEDES Kanji im Text einen Eintrag in "kanji" mit Bedeutung auf Deutsch, On- und Kun-Lesungen und "verwendung": 1–2 Sätze auf Deutsch, in welchen Situationen und Wörtern man das Kanji typischerweise verwendet, mit einem Beispielwort.
 
-Antworte NUR mit JSON in genau diesem Format:
-{{"titel":"...","titel_de":"...","saetze":[{{"tokens":[{{"s":"...","r":"...","de":"...","art":"...","erkl":"...","bsp":{{"jp":"...","r":"...","de":"..."}}}},{{"s":"。","p":true}}],"de":"..."}}],"kanji":{{"日":{{"bed":"...","on":["ニチ"],"kun":["ひ"],"verwendung":"..."}}}}}}"""
+Antworte NUR mit JSON, ein Eintrag pro Satz in derselben Reihenfolge:
+{{"saetze":[{{"tokens":[{{"s":"...","r":"...","de":"...","art":"...","erkl":"...","bsp":{{"jp":"...","r":"...","de":"..."}}}},{{"s":"。","p":true}}]}}]}}"""
 
 JA_KANJI_FILL = """Erkläre diese Kanji für eine deutschsprachige Japanisch-Lernende: {chars}
 Antworte NUR mit JSON: {{"日":{{"bed":"Bedeutung auf Deutsch","on":["..."],"kun":["..."],"verwendung":"1–2 Sätze, in welchen Situationen und Wörtern man es verwendet, mit Beispielwort"}}}}"""
@@ -160,13 +167,15 @@ def gemini(prompt, temperature=0.7):
     models = list(MODELS)
     last = None
     for rnd in range(4):
+        if time.time() > DEADLINE:
+            raise RuntimeError("Zeitlimit erreicht")
         for model in list(models):
             req = urllib.request.Request(
                 f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
                 data=body, method="POST",
                 headers={"Content-Type": "application/json", "x-goog-api-key": KEY})
             try:
-                with urllib.request.urlopen(req, timeout=180) as r:
+                with urllib.request.urlopen(req, timeout=300) as r:
                     res = json.loads(r.read())
                 parts = res["candidates"][0]["content"]["parts"]
                 text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
@@ -230,6 +239,25 @@ def italian():
     return obj
 
 
+def ja_tokens(level, sents):
+    """Wort-für-Wort-Erklärungen in kleinen Portionen, damit keine Anfrage zu lang dauert."""
+    out = []
+    for i in range(0, len(sents), 4):
+        part = sents[i:i + 4]
+        toks = None
+        try:
+            res = gemini(JA_TOKEN_PROMPT.format(level=level, sents=json.dumps([x["jp"] for x in part], ensure_ascii=False)))
+            got = res.get("saetze", []) if isinstance(res, dict) else []
+            if len(got) == len(part):
+                toks = [g.get("tokens") if isinstance(g, dict) and isinstance(g.get("tokens"), list) else None for g in got]
+        except Exception as e:
+            log(level, "Wort-Erklärungen fehlgeschlagen:", e)
+        for j, x in enumerate(part):
+            t = toks[j] if toks and toks[j] else [{"s": x["jp"], "r": "", "de": x.get("de", ""), "art": "Satz"}]
+            out.append({"tokens": t, "de": x.get("de", "")})
+    return out
+
+
 def japanese():
     heads = []
     for f in JA_FEEDS:
@@ -245,15 +273,16 @@ def japanese():
             topic = ("Eine stark vereinfachte Nacherzählung dieser aktuellen japanischen Nachricht in eigenen Worten "
                      f"(keine Sätze übernehmen, keine Fakten erfinden): {head['titolo']} – {head['descrizione']}")
         try:
+            # 1. Nur den Text schreiben (schnell); zu kurz oder zu wenig Kanji -> nochmal
             best = None
             for attempt in range(3):
                 try:
-                    cand = gemini(JA_PROMPT.format(level=lvl, topic=topic, rules=JA_RULES[lvl]))
+                    cand = gemini(JA_TEXT_PROMPT.format(level=lvl, topic=topic, rules=JA_RULES[lvl]))
                 except Exception as e:
                     log(lvl, "Versuch", attempt + 1, "fehlgeschlagen:", e)
                     continue
-                cs = [s for s in cand.get("saetze", []) if isinstance(s, dict) and isinstance(s.get("tokens"), list)]
-                nk = len({c for s in cs for t in s["tokens"] if isinstance(t, dict) for c in KANJI_RE.findall(str(t.get("s", "")))})
+                cs = [x for x in cand.get("saetze", []) if isinstance(x, dict) and str(x.get("jp", "")).strip()]
+                nk = len({c for x in cs for c in KANJI_RE.findall(x["jp"])})
                 score = (len(cs) >= JA_MIN[lvl][0]) + (nk >= JA_MIN[lvl][1]), len(cs) + nk
                 log(lvl, f"Versuch {attempt + 1}: {len(cs)} Sätze, {nk} Kanji")
                 if cs and (best is None or score > best[0]):
@@ -261,20 +290,21 @@ def japanese():
                 if score[0] == 2:
                     break
             if not best:
-                raise RuntimeError("keine Sätze in der Antwort")
-            _, obj, sents = best
+                raise RuntimeError("kein Text")
+            _, obj, cs = best
+            # 2. Wörter erklären
+            sents = ja_tokens(lvl, cs)
             obj["saetze"] = sents
-            kanji = obj.get("kanji") if isinstance(obj.get("kanji"), dict) else {}
-            used = {c for s in sents for t in s["tokens"] if isinstance(t, dict) for c in KANJI_RE.findall(str(t.get("s", "")))}
-            used |= set(KANJI_RE.findall(str(obj.get("titel", ""))))
-            miss = sorted(used - set(kanji))
-            if miss:
-                log(lvl, "ergänze Kanji:", "".join(miss))
+            # 3. Kanji erklären
+            used = {c for x in cs for c in KANJI_RE.findall(x["jp"])} | set(KANJI_RE.findall(str(obj.get("titel", ""))))
+            kanji = {}
+            miss = sorted(used)
+            for k in range(0, len(miss), 25):
                 try:
-                    extra = gemini(JA_KANJI_FILL.format(chars="".join(miss)))
-                    kanji.update({k: v for k, v in extra.items() if isinstance(v, dict)})
+                    extra = gemini(JA_KANJI_FILL.format(chars="".join(miss[k:k + 25])))
+                    kanji.update({c: v for c, v in extra.items() if isinstance(v, dict)})
                 except Exception as e:
-                    log("Kanji-Ergänzung fehlgeschlagen:", e)
+                    log("Kanji-Erklärung fehlgeschlagen:", e)
             obj["kanji"] = kanji
             if head:
                 obj["quelle"] = {"titel": head["titolo"], "link": head["link"]}
